@@ -1,2 +1,2 @@
 # csp
-Crypto and Stock Portfolio api
+Crypto and Stock Portfolio api [WIP]
