@@ -39,7 +39,7 @@ func NewPostgresAssetStore(conn string) AssetStore {
 
 func (p *pg) Get(ctx context.Context, in *objects.GetRequest) (*objects.Asset, error) {
 	asst := &objects.Asset{}
-	err := p.db.WithContext(ctx).Take(asst, "id = ?", in.Id).Error
+	err := p.db.WithContext(ctx).Take(asst, "symbol = ?", in.Symbol).Error
 	if err == gorm.ErrRecordNotFound {
 		return nil, errors.ErrAssetNotFound
 	}
@@ -52,7 +52,7 @@ func (p *pg) List(ctx context.Context, in *objects.ListRequest) ([]*objects.Asse
 	}
 	query := p.db.WithContext(ctx).Limit(in.Limit)
 	list := make([]*objects.Asset, 0, in.Limit)
-	err := query.Order("id").Find(&list).Error
+	err := query.Order("symbol").Find(&list).Error
 	return list, err
 }
 
@@ -60,11 +60,10 @@ func (p *pg) Create(ctx context.Context, in *objects.CreateRequest) error {
 	if in.Asset == nil {
 		return errors.ErrObjectIsRequired
 	}
-	in.Asset.ID = GenerateUniqueID()
 	return p.db.WithContext(ctx).Create(in.Asset).Error
 }
 
 func (p *pg) Delete(ctx context.Context, in *objects.DeleteRequest) error {
-	asst := &objects.Asset{ID: in.Id}
+	asst := &objects.Asset{Symbol: in.Symbol}
 	return p.db.WithContext(ctx).Model(asst).Delete(asst).Error
 }

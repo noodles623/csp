@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"time"
 )
 
 var (
@@ -33,25 +32,15 @@ var (
 		Code:    http.StatusBadRequest,
 		Message: "Request object should be provided",
 	}
-	// ErrValidAssetIDIsRequired HTTP 400
-	ErrValidAssetIdIsRequired = &Error{
+	// ErrValidAssetSymbolIsRequired HTTP 400
+	ErrValidAssetSymbolIsRequired = &Error{
 		Code:    http.StatusBadRequest,
-		Message: "A valid Asset id is required",
-	}
-	// ErrAssetTimingIsRequired HTTP 400
-	ErrAssetTimingIsRequired = &Error{
-		Code:    http.StatusBadRequest,
-		Message: "Asset start time and end time should be provided",
+		Message: "A valid Asset symbol is required",
 	}
 	// ErrInvalidLimit HTTP 400
 	ErrInvalidLimit = &Error{
 		Code:    http.StatusBadRequest,
 		Message: "Limit should be an integral value",
-	}
-	// ErrInvalidTimeFormat HTTP 400
-	ErrInvalidTimeFormat = &Error{
-		Code:    http.StatusBadRequest,
-		Message: "Time Should be passed in RFC3339 Format: " + time.RFC3339,
 	}
 )
 

@@ -12,9 +12,7 @@ const (
 )
 
 type Asset struct {
-	ID string `gorm:"primary_key" json:"id,omitempty"`
-
-	Symbol string `json:"symbol,omitempty"`
+	Symbol string `gorm:"primary_key" json:"symbol,omitempty"`
 	Name   string `json:"name,omitempty"`
 
 	Type   AssetType   `json:"type,omitempty"`

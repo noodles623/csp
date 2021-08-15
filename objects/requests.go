@@ -8,7 +8,7 @@ import (
 const MaxListLimit = 200
 
 type GetRequest struct {
-	Id string `json:"id"`
+	Symbol string `json:"symbol"`
 }
 
 type ListRequest struct {
@@ -20,12 +20,12 @@ type CreateRequest struct {
 }
 
 type DeleteRequest struct {
-	Id string `json:"id"`
+	Symbol string `json:"symbol"`
 }
 
 type AssetResponseWrapper struct {
-	Asset  *Asset   `json:"asset,omitempty""`
-	Assets []*Asset `json:"events,omitempty"`
+	Asset  *Asset   `json:"asset,omitempty"`
+	Assets []*Asset `json:"assets,omitempty"`
 	Code   int      `json:"-"`
 }
 

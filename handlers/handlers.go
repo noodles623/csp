@@ -25,11 +25,11 @@ func NewAssetHandler(store store.AssetStore) AssetHandler {
 }
 
 func (h *handler) Get(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("id")
-	if id == "" {
-		WriteError(w, errors.ErrValidAssetIdIsRequired)
+	symbol := r.URL.Query().Get("symbol")
+	if symbol == "" {
+		WriteError(w, errors.ErrValidAssetSymbolIsRequired)
 	}
-	asst, err := h.store.Get(r.Context(), &objects.GetRequest{Id: id})
+	asst, err := h.store.Get(r.Context(), &objects.GetRequest{Symbol: symbol})
 	if err != nil {
 		WriteError(w, err)
 		return
@@ -67,16 +67,16 @@ func (h *handler) Create(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *handler) Delete(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("id")
-	if id == "" {
-		WriteError(w, errors.ErrValidAssetIdIsRequired)
+	symbol := r.URL.Query().Get("symbol")
+	if symbol == "" {
+		WriteError(w, errors.ErrValidAssetSymbolIsRequired)
 		return
 	}
-	if _, err := h.store.Get(r.Context(), &objects.GetRequest{Id: id}); err != nil {
+	if _, err := h.store.Get(r.Context(), &objects.GetRequest{Symbol: symbol}); err != nil {
 		WriteError(w, err)
 		return
 	}
-	if err := h.store.Delete(r.Context(), &objects.DeleteRequest{Id: id}); err != nil {
+	if err := h.store.Delete(r.Context(), &objects.DeleteRequest{Symbol: symbol}); err != nil {
 		WriteError(w, err)
 		return
 	}
